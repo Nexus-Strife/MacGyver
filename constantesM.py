@@ -1,9 +1,9 @@
 # Constants vars
 
-Titre_jeu = "Escape !"
+Game_title = "Escape !"
 nombre_sprite_cote = 15
 taille_sprite = 30
-cote_fenetre = nombre_sprite_cote * taille_sprite
+w_window = nombre_sprite_cote * taille_sprite
 garde = "images/murdoc.png"
 
 

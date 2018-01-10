@@ -19,22 +19,22 @@ from Classes import *
 pygame.init()
 
 # Creation of the instance of the window
-window = pygame.display.set_mode((cote_fenetre, cote_fenetre))
+window = pygame.display.set_mode((w_window, w_window))
 
 # Title of the game
-pygame.display.set_caption(Titre_jeu)
+pygame.display.set_caption(Game_title)
 
 # Loading the backgound
-background = pygame.image.load("images/stone3.jpg").convert()
+Background = pygame.image.load("images/stone3.jpg").convert()
 
-# Loading the img of the caracter
-Perso = pygame.image.load("images/maggy2.png").convert_alpha()
+# Loading the sprite of the caracter
+Chara = pygame.image.load("images/maggy2.png").convert_alpha()
 
 # Apply the background in the window
-window.blit(background, (0, 0))
+window.blit(Background, (0, 0))
 
 # Apply the caracter in the window
-window.blit(Perso, (0, 0))
+window.blit(Chara, (0, 0))
 
 # Refresh the window the display the background and the character
 pygame.display.flip()
@@ -43,23 +43,23 @@ pygame.display.flip()
 level = Level(levelGame)
 
 # Creation of the character
-maggy = Personnage("images/maggy2.png", "images/maggy2.png",
-                   "images/maggy2.png", "images/maggy2.png", level)
+maggy = MacGyver("images/maggy2.png", "images/maggy2.png",
+                 "images/maggy2.png", "images/maggy2.png", level)
 
 # State of the game. 1 = running, 0 = closed
-continuer = 1
+Mainwhile = 1
 
 # Set for de movements of the character
 pygame.key.set_repeat(5, 5)
 
 # Loading of the gameover's image
-gameover = pygame.image.load("images/gameove.png").convert_alpha()
+Gameover = pygame.image.load("images/gameove.png").convert_alpha()
 
-# Loading of the win's image
-win = pygame.image.load("images/win.jpg")
+# Loading of the Win's image
+Win = pygame.image.load("images/win.jpg")
 
 # Generation of the level
-level.generer()
+level.gen()
 
 # Creation of the instance of items
 ether = Ether("images/ether.png", level)
@@ -67,12 +67,9 @@ needle = Needle("images/needle.png", level)
 tube = Tube("images/tube.png", level)
 
 # Vars of items. When the character pick-up one of them, var pass to 1
-obj1recup = 0
-obj2recup = 0
-obj3recup = 0
-
-# Var witch count how much item the character picked-up
-nbrobj = 0
+Ethinv = 0
+Needinv = 0
+Tubinv = 0
 
 # Font choosen for the txt ingame
 police = pygame.font.SysFont("monospace", 15, bold=True)
@@ -84,7 +81,7 @@ tub = police.render("Tube", 1, (255, 255, 255))
 aig = police.render("Aiguille", 1, (255, 255, 255))
 
 # Main loop of the game
-while continuer:
+while Mainwhile:
 
     # Refresh time
     pygame.time.Clock().tick(15)
@@ -93,7 +90,7 @@ while continuer:
     for event in pygame.event.get():
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
-                continuer = 0
+                Mainwhile = 0
             elif event.key == K_DOWN:
                 maggy.deplacer('bas')
             elif event.key == K_UP:
@@ -103,30 +100,30 @@ while continuer:
             elif event.key == K_RIGHT:
                 maggy.deplacer('droite')
 
-    window.blit(background, (0, 0))
+    window.blit(Background, (0, 0))
     window.blit(maggy.direction, (maggy.x, maggy.y))
     level.afficher(window)
 
     # If item if was picked display it in the inventory at the top right of the window
-    if obj1recup == 1:
+    if Ethinv == 1:
         window.blit(eth, (350, 20))
         pygame.display.flip()
         pass
-    elif obj1recup == 0:
+    elif Ethinv == 0:
         ether.display(window)
 
-    if obj2recup == 1:
+    if Needinv == 1:
         window.blit(aig, (350, 35))
         pygame.display.flip()
         pass
-    elif obj2recup == 0:
+    elif Needinv == 0:
         needle.display(window)
 
-    if obj3recup == 1:
+    if Tubinv == 1:
         window.blit(tub, (350, 50))
         pygame.display.flip()
         pass
-    elif obj3recup == 0:
+    elif Tubinv == 0:
         tube.display(window)
 
     # Display the "Inventaire" in the top right of the window
@@ -136,37 +133,40 @@ while continuer:
     """ If Mac Gyver arrive at the end of maze and didn't collect one of the item,
         then the player loose """
     if level.structure[maggy.case_y][maggy.case_x] == 'a':
-        if obj1recup == 0:
-            window.blit(gameover, (100, 100))
+        if Ethinv == 0:
+            window.blit(Gameover, (100, 100))
             pygame.display.flip()
-            if event.key == K_RETURN:
-                continuer = 0
-        if obj2recup == 0:
-            window.blit(gameover, (100, 100))
+            if event.type == KEYDOWN:
+                if event.key == K_RETURN:
+                    Mainwhile = 0
+        if Needinv == 0:
+            window.blit(Gameover, (100, 100))
             pygame.display.flip()
-            if event.key == K_RETURN:
-                continuer = 0
-        if obj3recup == 0:
-            window.blit(gameover, (100, 100))
+            if event.type == KEYDOWN:
+                if event.key == K_RETURN:
+                    Mainwhile = 0
+        if Tubinv == 0:
+            window.blit(Gameover, (100, 100))
             pygame.display.flip()
-            if event.key == K_RETURN:
-                continuer = 0
+            if event.type == KEYDOWN:
+                if event.key == K_RETURN:
+                    Mainwhile = 0
 
-        # If the play collect every items at the end of maze then he win
-        if obj1recup == 1 and obj2recup == 1 and obj3recup == 1:
+        # If the play collect every items at the end of maze then he Win
+        if Ethinv == 1 and Needinv == 1 and Tubinv == 1:
             pygame.time.Clock().tick(3000)
-            window.blit(win, (100, 100))
+            window.blit(Win, (100, 100))
             pygame.display.flip()
             if event.key == K_RETURN:
-                continuer = 0
+                Mainwhile = 0
 
     """ If the position of the player is the same of one of the items,
     then increase the var correspunding """
     if level.structure[maggy.case_y][maggy.case_x] == "o1":
-        obj1recup = 1
+        Ethinv = 1
 
     if level.structure[maggy.case_y][maggy.case_x] == "o2":
-        obj2recup = 1
+        Needinv = 1
 
     if level.structure[maggy.case_y][maggy.case_x] == "o3":
-        obj3recup = 1
+        Tubinv = 1

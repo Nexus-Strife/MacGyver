@@ -14,7 +14,7 @@ class Level:
         self.structure = []
 
     # Method that generate the level from the levelGame.txt
-    def generer(self):
+    def gen(self):
         # Open the file
         with open(self.fichier, "r") as fichier:
             structure_niveau = []
@@ -57,7 +57,7 @@ class Level:
 
 
 # That class create the character
-class Personnage:
+class MacGyver:
 
     def __init__(self, droite, gauche, haut, bas, level):
 
