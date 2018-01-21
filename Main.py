@@ -15,6 +15,9 @@ from constantesM import *
 # Import of classes
 from Classes import *
 
+# Import of the time's lib
+import time
+
 # Initialisation of pygame
 pygame.init()
 
@@ -139,17 +142,49 @@ while Mainwhile:
             if event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     Mainwhile = 0
+                elif event.key == K_ESCAPE:
+                    Mainwhile = 0
+                elif event.key == K_DOWN:
+                    Mainwhile = 0
+                elif event.key == K_UP:
+                    Mainwhile = 0
+                elif event.key == K_LEFT:
+                    Mainwhile = 0
+                elif event.key == K_RIGHT:
+                    Mainwhile = 0
+
         if Needinv == 0:
             window.blit(Gameover, (100, 100))
             pygame.display.flip()
             if event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     Mainwhile = 0
+                elif event.key == K_ESCAPE:
+                    Mainwhile = 0
+                elif event.key == K_DOWN:
+                    Mainwhile = 0
+                elif event.key == K_UP:
+                    Mainwhile = 0
+                elif event.key == K_LEFT:
+                    Mainwhile = 0
+                elif event.key == K_RIGHT:
+                    Mainwhile = 0
+
         if Tubinv == 0:
             window.blit(Gameover, (100, 100))
             pygame.display.flip()
             if event.type == KEYDOWN:
                 if event.key == K_RETURN:
+                    Mainwhile = 0
+                if event.key == K_ESCAPE:
+                    Mainwhile = 0
+                elif event.key == K_DOWN:
+                    Mainwhile = 0
+                elif event.key == K_UP:
+                    Mainwhile = 0
+                elif event.key == K_LEFT:
+                    Mainwhile = 0
+                elif event.key == K_RIGHT:
                     Mainwhile = 0
 
         # If the play collect every items at the end of maze then he Win
@@ -158,6 +193,9 @@ while Mainwhile:
             window.blit(Win, (100, 100))
             pygame.display.flip()
             if event.key == K_RETURN:
+                Mainwhile = 0
+            else:
+                time.sleep(3)
                 Mainwhile = 0
 
     """ If the position of the player is the same of one of the items,

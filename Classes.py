@@ -8,50 +8,50 @@ import random
 
 # This class create the level
 class Level:
-    def __init__(self, fichier):
-        self.fichier = fichier
+    def __init__(self, file):
+        self.file = file
         # Very important /!\ THE ARRAY MUST BE EMPTY /!\
         self.structure = []
 
     # Method that generate the level from the levelGame.txt
     def gen(self):
         # Open the file
-        with open(self.fichier, "r") as fichier:
-            structure_niveau = []
+        with open(self.file, "r") as file:
+            structure_level = []
             # Reading the lines in file
-            for ligne in fichier:
+            for line in file:
                 ligne_niveau = []
                 # Reading every letters in file
-                for sprite in ligne:
+                for sprite in line:
                     # Ignoring the last sprite to continue with the next line
                     if sprite != '\n':
                         # Adding every letters to the array
                         ligne_niveau.append(sprite)
                 # Adding every lines the the array
-                structure_niveau.append(ligne_niveau)
+                structure_level.append(ligne_niveau)
             # Then the method save the entire structure of the level
-            self.structure = structure_niveau
+            self.structure = structure_level
 
     # This method display the level into the window
     def afficher(self, fenetre):
 
         # Load the img of the structure of the level
-        mur = pygame.image.load("images/mur.png").convert()
-        arrivee = pygame.image.load(garde).convert_alpha()
+        Wall = pygame.image.load("images/Wall.png").convert()
+        Escape = pygame.image.load(garde).convert_alpha()
 
         # Read the entire structure
         num_ligne = 0
-        for ligne in self.structure:
+        for line in self.structure:
             # Read every line
             num_case = 0
-            for sprite in ligne:
+            for sprite in line:
                 # Calculate the real position of the sprite
                 x = num_case * taille_sprite
                 y = num_ligne * taille_sprite
                 if sprite == 'm':  # m = Wall
-                    fenetre.blit(mur, (x, y))
+                    fenetre.blit(Wall, (x, y))
                 elif sprite == "a":  # a = Exit of the maze
-                    fenetre.blit(arrivee, (x, y))
+                    fenetre.blit(Escape, (x, y))
                 num_case += 1
             num_ligne += 1
 
@@ -139,8 +139,8 @@ class Ether:
 
         # A loop to check of the position picked by random is a freespace
         while count < count_max:
-            self.case_x = int(random.randint(0, 14))
-            self.case_y = int(random.randint(0, 14))
+            self.case_x = random.randint(0, 14)
+            self.case_y = random.randint(0, 14)
 
             # If the sprite is a freespace
             if self.level.structure[self.case_y][self.case_x] == '0':
@@ -176,8 +176,8 @@ class Needle:
         count_max = 1
         count = 0
         while count < count_max:
-            self.case_x = int(random.randint(0, 14))
-            self.case_y = int(random.randint(0, 14))
+            self.case_x = random.randint(0,14)
+            self.case_y = random.randint(0,14)
             if self.level.structure[self.case_y][self.case_x] == '0':
                 self.level.structure[self.case_y][self.case_x] = "o2"
                 count += 1
@@ -202,8 +202,8 @@ class Tube:
         count_max = 1
         count = 0
         while count < count_max:
-            self.case_x = int(random.randint(0, 14))
-            self.case_y = int(random.randint(0, 14))
+            self.case_x = random.randint(0,14)
+            self.case_y = random.randint(0,14)
             if self.level.structure[self.case_y][self.case_x] == '0':
                 self.level.structure[self.case_y][self.case_x] = "o3"
                 count += 1
