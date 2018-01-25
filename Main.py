@@ -95,17 +95,17 @@ while Mainwhile:
             if event.key == K_ESCAPE:
                 Mainwhile = 0
             elif event.key == K_DOWN:
-                maggy.deplacer('bas')
+                maggy.move('down')
             elif event.key == K_UP:
-                maggy.deplacer('haut')
+                maggy.move('up')
             elif event.key == K_LEFT:
-                maggy.deplacer('gauche')
+                maggy.move('left')
             elif event.key == K_RIGHT:
-                maggy.deplacer('droite')
+                maggy.move('right')
 
     window.blit(Background, (0, 0))
     window.blit(maggy.direction, (maggy.x, maggy.y))
-    level.afficher(window)
+    level.Show(window)
 
     # If item if was picked display it in the inventory at the top right of the window
     if Ethinv == 1:

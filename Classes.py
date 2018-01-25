@@ -20,23 +20,23 @@ class Level:
             structure_level = []
             # Reading the lines in file
             for line in file:
-                ligne_niveau = []
+                line_of_level = []
                 # Reading every letters in file
                 for sprite in line:
                     # Ignoring the last sprite to continue with the next line
                     if sprite != '\n':
                         # Adding every letters to the array
-                        ligne_niveau.append(sprite)
+                        line_of_level.append(sprite)
                 # Adding every lines the the array
-                structure_level.append(ligne_niveau)
+                structure_level.append(line_of_level)
             # Then the method save the entire structure of the level
             self.structure = structure_level
 
     # This method display the level into the window
-    def afficher(self, fenetre):
+    def Show(self, Window):
 
         # Load the img of the structure of the level
-        Wall = pygame.image.load("images/Wall.png").convert()
+        Wall = pygame.image.load("images/mur.png").convert()
         Escape = pygame.image.load(garde).convert_alpha()
 
         # Read the entire structure
@@ -49,9 +49,9 @@ class Level:
                 x = num_case * taille_sprite
                 y = num_ligne * taille_sprite
                 if sprite == 'm':  # m = Wall
-                    fenetre.blit(Wall, (x, y))
+                    Window.blit(Wall, (x, y))
                 elif sprite == "a":  # a = Exit of the maze
-                    fenetre.blit(Escape, (x, y))
+                    Window.blit(Escape, (x, y))
                 num_case += 1
             num_ligne += 1
 
@@ -59,13 +59,13 @@ class Level:
 # That class create the character
 class MacGyver:
 
-    def __init__(self, droite, gauche, haut, bas, level):
+    def __init__(self, right, left, up, down, level):
 
         # Sprites of the character (need to get improve)
-        self.droite = pygame.image.load(droite).convert_alpha()
-        self.gauche = pygame.image.load(gauche).convert_alpha()
-        self.haut = pygame.image.load(haut).convert_alpha()
-        self.bas = pygame.image.load(bas).convert_alpha()
+        self.right = pygame.image.load(right).convert_alpha()
+        self.left = pygame.image.load(left).convert_alpha()
+        self.up = pygame.image.load(up).convert_alpha()
+        self.down = pygame.image.load(down).convert_alpha()
 
         # Initial position of the character
         self.case_x = 0
@@ -74,14 +74,14 @@ class MacGyver:
         self.y = 0
 
         # Initial position of Mac Gyver. Need to be improve with the sprite
-        self.direction = self.droite
+        self.direction = self.right
         self.level = level
 
     # This method allow the player to move Mac Gyver
-    def deplacer(self, direction):
+    def move(self, direction):
 
         # Move to the right
-        if direction == 'droite':
+        if direction == 'right':
             # To not get out of the window
             if self.case_x < (nombre_sprite_cote - 1):
                 # Check if the next iteration isn't a wall
@@ -91,31 +91,31 @@ class MacGyver:
                     # Calculate the real position
                     self.x = self.case_x * taille_sprite
             # Display the right sprite in fonction of movement
-            self.direction = self.droite
+            self.direction = self.right
 
         # Move to the left
-        if direction == 'gauche':
+        if direction == 'left':
             if self.case_x > 0:
                 if self.level.structure[self.case_y][self.case_x - 1] != 'm':
                     self.case_x -= 1
                     self.x = self.case_x * taille_sprite
-            self.direction = self.gauche
+            self.direction = self.left
 
         # Move to the top
-        if direction == 'haut':
+        if direction == 'up':
             if self.case_y > 0:
                 if self.level.structure[self.case_y - 1][self.case_x] != 'm':
                     self.case_y -= 1
                     self.y = self.case_y * taille_sprite
-            self.direction = self.haut
+            self.direction = self.up
 
         # Move to the bottom
-        if direction == 'bas':
+        if direction == 'down':
             if self.case_y < (nombre_sprite_cote - 1):
                 if self.level.structure[self.case_y + 1][self.case_x] != 'm':
                     self.case_y += 1
                     self.y = self.case_y * taille_sprite
-            self.direction = self.bas
+            self.direction = self.down
 
 
 # Class to create one of the items
@@ -154,13 +154,13 @@ class Ether:
         return self.case_x, self.case_y
 
     # Method that display the item on the map
-    def display(self, fenetre):
+    def display(self, Window):
 
         # Load the sprite
         c_ether = pygame.image.load("images/ether.png").convert_alpha()
 
         # Display the item on screen
-        fenetre.blit(c_ether, (self.x, self.y))
+        Window.blit(c_ether, (self.x, self.y))
 
 
 # Class to create one of the items
@@ -184,9 +184,9 @@ class Needle:
                 break
         return self.case_x, self.case_y
 
-    def display(self, fenetre):
+    def display(self, Window):
         c_needle = pygame.image.load("images/needle.png").convert_alpha()
-        fenetre.blit(c_needle, (self.x, self.y))
+        Window.blit(c_needle, (self.x, self.y))
 
 
 # Class to create one of the items
@@ -210,6 +210,6 @@ class Tube:
                 break
         return self.case_x, self.case_y
 
-    def display(self, fenetre):
+    def display(self, Window):
         c_tube = pygame.image.load("images/tube.png").convert_alpha()
-        fenetre.blit(c_tube, (self.x, self.y))
+        Window.blit(c_tube, (self.x, self.y))
