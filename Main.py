@@ -139,6 +139,7 @@ while Mainwhile:
         if Ethinv == 0:
             window.blit(Gameover, (100, 100))
             pygame.display.flip()
+            time.sleep(3)
             if event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     Mainwhile = 0
@@ -156,6 +157,7 @@ while Mainwhile:
         if Needinv == 0:
             window.blit(Gameover, (100, 100))
             pygame.display.flip()
+            time.sleep(3)
             if event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     Mainwhile = 0
@@ -173,6 +175,7 @@ while Mainwhile:
         if Tubinv == 0:
             window.blit(Gameover, (100, 100))
             pygame.display.flip()
+            time.sleep(3)
             if event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     Mainwhile = 0
