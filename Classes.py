@@ -46,8 +46,8 @@ class Level:
             num_case = 0
             for sprite in line:
                 # Calculate the real position of the sprite
-                x = num_case * taille_sprite
-                y = num_ligne * taille_sprite
+                x = num_case * w_sprite
+                y = num_ligne * w_sprite
                 if sprite == 'm':  # m = Wall
                     Window.blit(Wall, (x, y))
                 elif sprite == "a":  # a = Exit of the maze
@@ -83,13 +83,13 @@ class MacGyver:
         # Move to the right
         if direction == 'right':
             # To not get out of the window
-            if self.case_x < (nombre_sprite_cote - 1):
+            if self.case_x < (nsc - 1):
                 # Check if the next iteration isn't a wall
                 if self.level.structure[self.case_y][self.case_x + 1] != 'm':
                     # Move 1 square
                     self.case_x += 1
                     # Calculate the real position
-                    self.x = self.case_x * taille_sprite
+                    self.x = self.case_x * w_sprite
             # Display the right sprite in fonction of movement
             self.direction = self.right
 
@@ -98,7 +98,7 @@ class MacGyver:
             if self.case_x > 0:
                 if self.level.structure[self.case_y][self.case_x - 1] != 'm':
                     self.case_x -= 1
-                    self.x = self.case_x * taille_sprite
+                    self.x = self.case_x * w_sprite
             self.direction = self.left
 
         # Move to the top
@@ -106,15 +106,15 @@ class MacGyver:
             if self.case_y > 0:
                 if self.level.structure[self.case_y - 1][self.case_x] != 'm':
                     self.case_y -= 1
-                    self.y = self.case_y * taille_sprite
+                    self.y = self.case_y * w_sprite
             self.direction = self.up
 
         # Move to the bottom
         if direction == 'down':
-            if self.case_y < (nombre_sprite_cote - 1):
+            if self.case_y < (nsc - 1):
                 if self.level.structure[self.case_y + 1][self.case_x] != 'm':
                     self.case_y += 1
-                    self.y = self.case_y * taille_sprite
+                    self.y = self.case_y * w_sprite
             self.direction = self.down
 
 
@@ -129,8 +129,8 @@ class Ether:
         # Initial settings for the item
         self.level = level
         self.case_x, self.case_y = self.randpos()
-        self.x = self.case_x * taille_sprite
-        self.y = self.case_y * taille_sprite
+        self.x = self.case_x * w_sprite
+        self.y = self.case_y * w_sprite
 
     # Method that calculate a random pos to pop the item
     def randpos(self):
@@ -169,8 +169,8 @@ class Needle:
         self.obj = pygame.image.load(obj).convert_alpha
         self.level = level
         self.case_x, self.case_y = self.randpos()
-        self.x = self.case_x * taille_sprite
-        self.y = self.case_y * taille_sprite
+        self.x = self.case_x * w_sprite
+        self.y = self.case_y * w_sprite
 
     def randpos(self):
         count_max = 1
@@ -195,8 +195,8 @@ class Tube:
         self.obj = pygame.image.load(obj).convert_alpha
         self.level = level
         self.case_x, self.case_y = self.randpos()
-        self.x = self.case_x * taille_sprite
-        self.y = self.case_y * taille_sprite
+        self.x = self.case_x * w_sprite
+        self.y = self.case_y * w_sprite
 
     def randpos(self):
         count_max = 1
